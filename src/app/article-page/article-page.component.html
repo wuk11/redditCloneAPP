@@ -1,0 +1,51 @@
+<div class="container">
+  <div *ngIf="articleData?.article" class="card">
+    <h5 class="card-header">{{ articleData?.article.title }}</h5>
+    <div class="card-body">
+      <p class="card-text">{{ articleData?.article.text }}</p>
+    </div>
+    <div class="card-footer text-body-secondary">
+      <i class="bi bi-caret-up-square"></i>
+      <span class="card-text px-2">
+        {{ articleData?.article.karma }}
+      </span>
+      <i class="bi bi-caret-down-square"></i>
+    </div>
+  </div>
+
+  <form
+    [formGroup]="commentForm"
+    (submit)="postComment(articleData.article.id)"
+    class="my-4"
+  >
+    <textarea
+      formControlName="text"
+      class="form-control"
+      placeholder="Leave a comment here"
+      id="text"
+    ></textarea>
+    <button type="submit" class="btn btn-primary" [disabled]="!isLoggedIn()">
+      comment
+    </button>
+  </form>
+
+  <div class="container" *ngFor="let data of commentData.comments">
+    <div class="card mt-2">
+      <h5 class="card-header">{{ data.isDeleted ? "Deleted" : data.text }}</h5>
+      <div class="card-footer text-body-secondary d-flex align-items-center">
+        <i class="bi bi-caret-up-square"></i>
+        <span class="card-text px-2">
+          {{ data.karma }}
+        </span>
+        <i class="bi bi-caret-down-square"></i>
+        <button
+          class="btn mx-4"
+          (click)="delete(data.id)"
+          [disabled]="!isLoggedIn()"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

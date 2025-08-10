@@ -1,0 +1,20 @@
+<div class="container">
+  <h1 class="text-center">{{ communityName }}</h1>
+  <div class="py-2" *ngFor="let article of data.articles">
+    <div class="card">
+      <a [routerLink]="'/community/' + communityId + '/article/' + article.id">
+        <h5 class="card-header">{{ article.title }}</h5>
+      </a>
+      <div class="card-body">
+        <p class="card-text">{{ article.text }}</p>
+      </div>
+      <div class="card-footer text-body-secondary">
+        <i class="bi bi-caret-up-square"></i>
+        <span class="card-text px-2">
+          {{ article.karma }}
+        </span>
+        <i class="bi bi-caret-down-square"></i>
+      </div>
+    </div>
+  </div>
+</div>
