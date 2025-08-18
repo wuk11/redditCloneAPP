@@ -4,15 +4,17 @@ import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../auth.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { CommentComponent } from './comment/comment.component';
 
 @Component({
   selector: 'app-article-page',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, CommentComponent],
   templateUrl: './article-page.component.html',
   styleUrl: './article-page.component.css',
 })
 export class ArticlePageComponent {
   commentForm: FormGroup;
+  replyForm: FormGroup;
 
   constructor(
     private backend: BackendService,
@@ -22,12 +24,16 @@ export class ArticlePageComponent {
     this.commentForm = this.fb.group({
       text: [''],
     });
+    this.replyForm = this.fb.group({
+      text: [''],
+    });
   }
 
   private route = inject(ActivatedRoute);
   articleId!: string;
   articleData: any = {};
   commentData: any = {};
+  activeReplyId: string | null = null;
 
   isLoggedIn() {
     return this.auth.isLoggedIn();
@@ -49,13 +55,10 @@ export class ArticlePageComponent {
 
     this.backend.getComments(this.articleId).subscribe((res) => {
       this.commentData = res;
-      console.log(this.commentData);
-    });
-  }
-
-  delete(id: string) {
-    this.backend.deleteComment(id).subscribe((res) => {
-      window.location.reload();
+      this.commentData.comments = this.commentData.comments.filter((c: any) => {
+        return c.replyToCommentId === null;
+      });
+      console.log(this.commentData.comments);
     });
   }
 }

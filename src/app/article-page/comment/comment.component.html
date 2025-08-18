@@ -1,0 +1,46 @@
+<div class="container" *ngFor="let data of commentData.comments">
+  <div class="card mt-2">
+    <h5 class="card-header">{{ data.isDeleted ? "Deleted" : data.text }}</h5>
+    <div class="card-footer text-body-secondary d-flex align-items-center">
+      <i class="bi bi-caret-up-square"></i>
+      <span class="card-text px-2">
+        {{ data.karma }}
+      </span>
+      <i class="bi bi-caret-down-square"></i>
+      <button
+        class="btn mx-4"
+        (click)="delete(data.id)"
+        [disabled]="!isLoggedIn()"
+      >
+        Delete
+      </button>
+      <button
+        (click)="toggleReply(data.id)"
+        class="btn mx-4"
+        [disabled]="!isLoggedIn()"
+      >
+        Reply
+      </button>
+      <form
+        [hidden]="activeReplyId == data.id ? false : true"
+        [formGroup]="replyForm"
+        (submit)="postReply(data.id)"
+        class="my-4"
+      >
+        <textarea
+          formControlName="text"
+          class="form-control"
+          placeholder="Leave a reply.."
+          id="text"
+        ></textarea>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="!isLoggedIn()"
+        >
+          comment
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

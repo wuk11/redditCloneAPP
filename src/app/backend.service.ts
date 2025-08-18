@@ -34,6 +34,12 @@ export class BackendService {
     return this.http.post('http://localhost:3000/comment/' + id, { text });
   }
 
+  postReply(id: string, text: string) {
+    return this.http.post('http://localhost:3000/comment/reply/' + id, {
+      text,
+    });
+  }
+
   postRegister(username: string, password: string, email: string) {
     return this.http.post('http://localhost:3000/auth/signup', {
       username,
