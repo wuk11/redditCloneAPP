@@ -51,4 +51,26 @@ export class BackendService {
   deleteComment(id: string) {
     return this.http.delete('http://localhost:3000/comment/' + id);
   }
+
+  upvoteComment(id: string) {
+    return this.http.post('http://localhost:3000/comment/upvote/' + id, {});
+  }
+
+  downvoteComment(id: string) {
+    return this.http.post('http://localhost:3000/comment/downvote/' + id, {});
+  }
+
+  upvoteArticle(id: string) {
+    return this.http.post(
+      'http://localhost:3000/community/article/' + id + '/upvote',
+      {}
+    );
+  }
+
+  downvoteArticle(id: string) {
+    return this.http.post(
+      'http://localhost:3000/community/article/' + id + '/downvote',
+      {}
+    );
+  }
 }

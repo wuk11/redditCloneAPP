@@ -28,6 +28,7 @@ export class CommentComponent {
   }
 
   @Input() commentData: any = {};
+  @Input() replyData: any = [];
 
   activeReplyId: string | null = null;
 
@@ -50,5 +51,27 @@ export class CommentComponent {
 
   toggleReply(id: string) {
     this.activeReplyId = id;
+  }
+
+  upvoteComment(id: string) {
+    this.backend.upvoteComment(id).subscribe({
+      next: (res) => {
+        window.location.reload();
+      },
+      error: (err) => {
+        alert(err.error.message);
+      },
+    });
+  }
+
+  downvoteComment(id: string) {
+    this.backend.downvoteComment(id).subscribe({
+      next: (res) => {
+        window.location.reload();
+      },
+      error: (err) => {
+        alert(err.error.message);
+      },
+    });
   }
 }

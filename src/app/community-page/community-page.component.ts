@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { BackendService } from '../backend.service';
+import { ArticlePageComponent } from '../article-page/article-page.component';
 
 @Component({
   selector: 'app-community-page',
@@ -31,6 +32,28 @@ export class CommunityPageComponent {
         (c: any) => c.id == this.communityId
       );
       this.communityName = community ? community.name : 'Unknown';
+    });
+  }
+
+  upvoteArticle(id: string) {
+    this.backend.upvoteArticle(id).subscribe({
+      next: (res) => {
+        window.location.reload();
+      },
+      error: (err) => {
+        alert(err.error.message);
+      },
+    });
+  }
+
+  downvoteArticle(id: string) {
+    this.backend.downvoteArticle(id).subscribe({
+      next: (res) => {
+        window.location.reload();
+      },
+      error: (err) => {
+        alert(err.error.message);
+      },
     });
   }
 }

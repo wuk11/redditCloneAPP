@@ -5,11 +5,19 @@
       <p class="card-text">{{ articleData?.article.text }}</p>
     </div>
     <div class="card-footer text-body-secondary">
-      <i class="bi bi-caret-up-square"></i>
+      <i
+        class="bi bi-caret-up-square"
+        style="cursor: pointer"
+        (click)="upvoteArticle(articleData.article.id)"
+      ></i>
       <span class="card-text px-2">
         {{ articleData?.article.karma }}
       </span>
-      <i class="bi bi-caret-down-square"></i>
+      <i
+        class="bi bi-caret-down-square"
+        style="cursor: pointer"
+        (click)="downvoteArticle(articleData.article.id)"
+      ></i>
     </div>
   </div>
 
@@ -29,5 +37,8 @@
     </button>
   </form>
 
-  <app-comment [commentData]="commentData"></app-comment>
+  <app-comment
+    [commentData]="commentData"
+    [replyData]="replyData"
+  ></app-comment>
 </div>

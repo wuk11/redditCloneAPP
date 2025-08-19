@@ -9,11 +9,19 @@
         <p class="card-text">{{ article.text }}</p>
       </div>
       <div class="card-footer text-body-secondary">
-        <i class="bi bi-caret-up-square"></i>
+        <i
+          class="bi bi-caret-up-square"
+          style="cursor: pointer"
+          (click)="upvoteArticle(article.id)"
+        ></i>
         <span class="card-text px-2">
           {{ article.karma }}
         </span>
-        <i class="bi bi-caret-down-square"></i>
+        <i
+          class="bi bi-caret-down-square"
+          style="cursor: pointer"
+          (click)="downvoteArticle(article.id)"
+        ></i>
       </div>
     </div>
   </div>

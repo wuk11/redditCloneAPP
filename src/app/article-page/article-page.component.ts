@@ -33,6 +33,7 @@ export class ArticlePageComponent {
   articleId!: string;
   articleData: any = {};
   commentData: any = {};
+  replyData: any = [];
   activeReplyId: string | null = null;
 
   isLoggedIn() {
@@ -55,10 +56,41 @@ export class ArticlePageComponent {
 
     this.backend.getComments(this.articleId).subscribe((res) => {
       this.commentData = res;
+
+      this.commentData.comments.forEach((c: any) => {
+        if (c.replyToCommentId !== null) {
+          this.replyData.push(c);
+        }
+      });
+
       this.commentData.comments = this.commentData.comments.filter((c: any) => {
         return c.replyToCommentId === null;
       });
+
       console.log(this.commentData.comments);
+      console.log(this.replyData);
+    });
+  }
+
+  upvoteArticle(id: string) {
+    this.backend.upvoteArticle(id).subscribe({
+      next: (res) => {
+        window.location.reload();
+      },
+      error: (err) => {
+        alert(err.error.message);
+      },
+    });
+  }
+
+  downvoteArticle(id: string) {
+    this.backend.downvoteArticle(id).subscribe({
+      next: (res) => {
+        window.location.reload();
+      },
+      error: (err) => {
+        alert(err.error.message);
+      },
     });
   }
 }
