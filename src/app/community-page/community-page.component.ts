@@ -56,4 +56,42 @@ export class CommunityPageComponent {
       },
     });
   }
+
+  selectSortButton(event: any) {
+    this.sortComments(event.target.value);
+  }
+
+  sortComments(sort: string) {
+    switch (sort) {
+      case 'hot':
+        this.data.articles.sort(
+          (a: any, b: any) => this.hotnessScore(b) - this.hotnessScore(a)
+        );
+        break;
+      case 'karma':
+        this.data.articles.sort((a: any, b: any) => b.karma - a.karma);
+        break;
+      case 'oldest':
+        this.data.articles.sort(
+          (a: any, b: any) =>
+            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+        );
+        break;
+      case 'latest':
+        this.data.articles.sort(
+          (a: any, b: any) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
+        break;
+    }
+  }
+
+  hotnessScore(item: any) {
+    const s = item.karma;
+    const order = Math.log10(Math.max(Math.abs(s), 1));
+    const sign = s > 0 ? 1 : s < 0 ? -1 : 0;
+    const seconds = new Date(item.createdAt).getTime() / 1000 - 1134028003;
+
+    return sign * order + seconds / 45000;
+  }
 }

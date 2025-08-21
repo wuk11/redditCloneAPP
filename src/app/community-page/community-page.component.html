@@ -1,5 +1,19 @@
 <div class="container">
   <h1 class="text-center">{{ communityName }}</h1>
+
+  <br />
+  <select
+    (change)="selectSortButton($event)"
+    class="form-select"
+    aria-label="Default select example"
+  >
+    <option selected>Sort by:</option>
+    <option value="hot">Hot</option>
+    <option value="karma">Karma</option>
+    <option value="latest">Date latest</option>
+    <option value="oldest">Date oldest</option>
+  </select>
+
   <div class="py-2" *ngFor="let article of data.articles">
     <div class="card">
       <a [routerLink]="'/community/' + communityId + '/article/' + article.id">
