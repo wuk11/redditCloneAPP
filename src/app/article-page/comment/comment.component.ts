@@ -50,7 +50,11 @@ export class CommentComponent {
   }
 
   toggleReply(id: string) {
-    this.activeReplyId = id;
+    if (this.activeReplyId === id) {
+      this.activeReplyId = null;
+    } else {
+      this.activeReplyId = id;
+    }
   }
 
   upvoteComment(id: string) {

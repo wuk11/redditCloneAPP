@@ -93,4 +93,28 @@ export class ArticlePageComponent {
       },
     });
   }
+
+  selectSortButton(event: any) {
+    this.sortComments(event.target.value);
+  }
+
+  sortComments(sort: string) {
+    switch (sort) {
+      case 'karma':
+        this.commentData.comments.sort((a: any, b: any) => b.karma - a.karma);
+        break;
+      case 'oldest':
+        this.commentData.comments.sort(
+          (a: any, b: any) =>
+            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+        );
+        break;
+      case 'latest':
+        this.commentData.comments.sort(
+          (a: any, b: any) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
+        break;
+    }
+  }
 }

@@ -37,6 +37,18 @@
     </button>
   </form>
 
+  <br />
+  <select
+    (change)="selectSortButton($event)"
+    class="form-select"
+    aria-label="Default select example"
+  >
+    <option selected>Sort by:</option>
+    <option value="karma">Karma</option>
+    <option value="latest">Date latest</option>
+    <option value="oldest">Date oldest</option>
+  </select>
+
   <app-comment
     [commentData]="commentData"
     [replyData]="replyData"
