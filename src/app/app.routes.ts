@@ -1,8 +1,16 @@
 import { Routes } from '@angular/router';
 import { FrontPageComponent } from './front-page/front-page.component';
+import { FrontPageRandomComponent } from './front-page-random/front-page-random.component';
 
 export const routes: Routes = [
-  { path: '', component: FrontPageComponent },
+  { path: '', component: FrontPageRandomComponent },
+  {
+    path: 'community/main',
+    loadComponent: async () => {
+      const m = await import('./front-page/front-page.component');
+      return m.FrontPageComponent;
+    },
+  },
   {
     path: 'community/:id',
     loadComponent: async () => {
@@ -29,6 +37,15 @@ export const routes: Routes = [
     loadComponent: async () => {
       const m = await import('./register-page/register-page.component');
       return m.RegisterPageComponent;
+    },
+  },
+  {
+    path: 'createCommunity',
+    loadComponent: async () => {
+      const m = await import(
+        './create-community-page/create-community-page.component'
+      );
+      return m.CreateCommunityPageComponent;
     },
   },
 ];

@@ -4,6 +4,9 @@
       <span><i class="bi bi-boxes"></i></span>Klonnit
     </h1>
   </a>
+  <a class="text-decoration-none" [routerLink]="'community/main'">
+    <h3 class="text-center">Communites</h3>
+  </a>
   <a *ngIf="isLoggedOut()" class="text-decoration-none" [routerLink]="'login'">
     <h3 class="text-center">Log In</h3>
   </a>
@@ -20,6 +23,14 @@
     class="text-decoration-none"
     [routerLink]="'register'"
     ><h3 class="text-center">Register</h3></a
+  >
+</div>
+<div>
+  <a
+    *ngIf="isLoggedIn()"
+    class="text-decoration-none"
+    [routerLink]="'createCommunity'"
+    ><h3 class="text-center">Create a new community!</h3></a
   >
 </div>
 

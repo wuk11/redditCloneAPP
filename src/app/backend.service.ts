@@ -73,4 +73,11 @@ export class BackendService {
       {}
     );
   }
+
+  postCommunity(name: string, description: string) {
+    return this.http.post('http://localhost:3000/community', {
+      name,
+      description,
+    });
+  }
 }
