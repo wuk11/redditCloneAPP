@@ -48,4 +48,13 @@ export const routes: Routes = [
       return m.CreateCommunityPageComponent;
     },
   },
+  {
+    path: 'community/:communityId/createArticle',
+    loadComponent: async () => {
+      const m = await import(
+        './create-article-page/create-article-page.component'
+      );
+      return m.CreateArticlePageComponent;
+    },
+  },
 ];

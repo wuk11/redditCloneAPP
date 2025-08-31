@@ -1,5 +1,10 @@
 <div class="container">
-  <h1 class="text-center">{{ communityName }}</h1>
+  <div class="container d-flex justify-content-between">
+    <h1 class="text-center">{{ communityName }}</h1>
+    <h2 style="cursor: pointer" (click)="goToCreateArticle(communityId)">
+      > Post article
+    </h2>
+  </div>
 
   <br />
   <select
@@ -19,7 +24,15 @@
       <a [routerLink]="'/community/' + communityId + '/article/' + article.id">
         <h5 class="card-header">{{ article.title }}</h5>
       </a>
+      <h6 class="card-header" *ngIf="article.tag">>Tag: {{ article.tag }}</h6>
       <div class="card-body">
+        <img
+          *ngIf="article.image"
+          src="{{ article.image }}"
+          class="img-fluid"
+          alt="..."
+          style="max-height: 300px"
+        />
         <p class="card-text">{{ article.text }}</p>
       </div>
       <div class="card-footer text-body-secondary">

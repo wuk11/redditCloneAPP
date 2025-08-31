@@ -1,7 +1,14 @@
 <div class="container">
   <div *ngIf="articleData?.article" class="card">
     <h5 class="card-header">{{ articleData?.article.title }}</h5>
-    <div class="card-body">
+    <div class="card-body text-center">
+      <img
+        *ngIf="articleData?.article.image"
+        src="{{ articleData.article.image }}"
+        class="img-fluid"
+        alt="..."
+        style="max-height: 300px"
+      />
       <p class="card-text">{{ articleData?.article.text }}</p>
     </div>
     <div class="card-footer text-body-secondary">

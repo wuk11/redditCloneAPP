@@ -23,6 +23,24 @@ export class BackendService {
     return this.http.get('http://localhost:3000/community/randomArticles/');
   }
 
+  postArticle(
+    id: string,
+    title: string,
+    text: string,
+    image?: string,
+    tag?: string
+  ) {
+    return this.http.post(
+      'http://localhost:3000/community/' + id + '/article',
+      {
+        title,
+        text,
+        ...(image ? { image } : {}),
+        ...(tag ? { tag } : {}),
+      }
+    );
+  }
+
   getComments(id: string) {
     return this.http.get('http://localhost:3000/comment/' + id);
   }

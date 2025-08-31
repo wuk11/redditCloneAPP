@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { BackendService } from '../backend.service';
-import { ArticlePageComponent } from '../article-page/article-page.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-community-page',
@@ -11,7 +11,7 @@ import { ArticlePageComponent } from '../article-page/article-page.component';
   styleUrl: './community-page.component.css',
 })
 export class CommunityPageComponent {
-  constructor(private backend: BackendService) {}
+  constructor(private backend: BackendService, private router: Router) {}
 
   private route = inject(ActivatedRoute);
   communityId!: string;
@@ -93,5 +93,9 @@ export class CommunityPageComponent {
     const seconds = new Date(item.createdAt).getTime() / 1000 - 1134028003;
 
     return sign * order + seconds / 45000;
+  }
+
+  goToCreateArticle(id: string) {
+    this.router.navigate(['community/' + id + '/createArticle']);
   }
 }
