@@ -19,6 +19,10 @@ export class BackendService {
     return this.http.get('http://localhost:3000/community/articles/' + id);
   }
 
+  getRandomArticles() {
+    return this.http.get('http://localhost:3000/community/randomArticles/');
+  }
+
   getComments(id: string) {
     return this.http.get('http://localhost:3000/comment/' + id);
   }

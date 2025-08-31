@@ -1,1 +1,18 @@
-<p>front-page-random works!</p>
+<div
+  style="cursor: pointer"
+  class="container mt-2"
+  *ngFor="let article of articles"
+  (click)="goToCommunity(article.CommunityId)"
+>
+  <div class="card">
+    <h5 class="card-header">{{ article.title }}</h5>
+    <div class="card-body">
+      <p class="card-text">{{ article.text }}</p>
+    </div>
+    <div class="card-footer text-body-secondary">
+      <span class="card-text px-2">
+        {{ article.karma }}
+      </span>
+    </div>
+  </div>
+</div>
