@@ -56,8 +56,5 @@
     <option value="oldest">Date oldest</option>
   </select>
 
-  <app-comment
-    [commentData]="commentData"
-    [replyData]="replyData"
-  ></app-comment>
+  <app-comment *ngFor="let c of comments" [comment]="c"></app-comment>
 </div>

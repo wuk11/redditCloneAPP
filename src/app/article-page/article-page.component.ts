@@ -33,7 +33,7 @@ export class ArticlePageComponent {
   articleId!: string;
   articleData: any = {};
   commentData: any = {};
-  replyData: any = [];
+  comments: any = [];
   activeReplyId: string | null = null;
 
   isLoggedIn() {
@@ -56,19 +56,7 @@ export class ArticlePageComponent {
 
     this.backend.getComments(this.articleId).subscribe((res) => {
       this.commentData = res;
-
-      this.commentData.comments.forEach((c: any) => {
-        if (c.replyToCommentId !== null) {
-          this.replyData.push(c);
-        }
-      });
-
-      this.commentData.comments = this.commentData.comments.filter((c: any) => {
-        return c.replyToCommentId === null;
-      });
-
-      console.log(this.commentData.comments);
-      console.log(this.replyData);
+      this.comments = this.buildCommentTree(this.commentData.comments);
     });
   }
 
@@ -116,5 +104,25 @@ export class ArticlePageComponent {
         );
         break;
     }
+  }
+
+  buildCommentTree(comments: any) {
+    const roots: any = [];
+    const map = new Map();
+
+    comments.forEach((c: any) => {
+      c.replies = [];
+      map.set(c.id, c);
+    });
+
+    comments.forEach((c: any) => {
+      if (c.replyToCommentId) {
+        map.get(c.replyToCommentId)?.replies?.push(c);
+      } else {
+        roots.push(c);
+      }
+    });
+
+    return roots;
   }
 }

@@ -27,8 +27,7 @@ export class CommentComponent {
     });
   }
 
-  @Input() commentData: any = {};
-  @Input() replyData: any = [];
+  @Input() comment: any = {};
 
   activeReplyId: string | null = null;
 

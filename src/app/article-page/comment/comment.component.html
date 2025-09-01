@@ -1,39 +1,41 @@
-<div class="container" *ngFor="let data of commentData.comments">
+<div class="container">
   <!-- comment -->
   <div class="card mt-2">
-    <h5 class="card-header">{{ data.isDeleted ? "Deleted" : data.text }}</h5>
+    <h5 class="card-header">
+      {{ comment.isDeleted ? "Deleted" : comment.text }}
+    </h5>
     <div class="card-footer text-body-secondary d-flex align-items-center">
       <i
         class="bi bi-caret-up-square"
         style="cursor: pointer"
-        (click)="upvoteComment(data.id)"
+        (click)="upvoteComment(comment.id)"
       ></i>
       <span class="card-text px-2">
-        {{ data.karma }}
+        {{ comment.karma }}
       </span>
       <i
         class="bi bi-caret-down-square pe-auto"
         style="cursor: pointer"
-        (click)="downvoteComment(data.id)"
+        (click)="downvoteComment(comment.id)"
       ></i>
       <button
         class="btn mx-4"
-        (click)="delete(data.id)"
+        (click)="delete(comment.id)"
         [disabled]="!isLoggedIn()"
       >
         Delete
       </button>
       <button
-        (click)="toggleReply(data.id)"
+        (click)="toggleReply(comment.id)"
         class="btn mx-4"
         [disabled]="!isLoggedIn()"
       >
         Reply
       </button>
       <form
-        [hidden]="activeReplyId == data.id ? false : true"
+        [hidden]="activeReplyId == comment.id ? false : true"
         [formGroup]="replyForm"
-        (submit)="postReply(data.id)"
+        (submit)="postReply(comment.id)"
         class="my-4"
       >
         <textarea
@@ -52,58 +54,9 @@
       </form>
     </div>
   </div>
-  <!-- reply -->
-  <!-- this makes and empty div for every reply in replyData variable NEED TO FIX -->
-  <!-- need to add infinite reply possibility / as of now only 1 reply is possible -->
-  <div class="container" *ngFor="let reply of replyData">
-    <div *ngIf="reply.replyToCommentId === data.id" class="card mt-2">
-      <h5 class="card-header">
-        {{ reply.isDeleted ? "Deleted" : reply.text }}
-      </h5>
-      <div class="card-footer text-body-secondary d-flex align-items-center">
-        <i class="bi bi-caret-up-square" (click)="upvoteComment(reply.id)"></i>
-        <span class="card-text px-2">
-          {{ reply.karma }}
-        </span>
-        <i
-          class="bi bi-caret-down-square"
-          (click)="downvoteComment(reply.id)"
-        ></i>
-        <button
-          class="btn mx-4"
-          (click)="delete(reply.id)"
-          [disabled]="!isLoggedIn()"
-        >
-          Delete
-        </button>
-        <button
-          (click)="toggleReply(reply.id)"
-          class="btn mx-4"
-          [disabled]="!isLoggedIn()"
-        >
-          Reply
-        </button>
-        <form
-          [hidden]="activeReplyId == reply.id ? false : true"
-          [formGroup]="replyForm"
-          (submit)="postReply(reply.id)"
-          class="my-4"
-        >
-          <textarea
-            formControlName="text"
-            class="form-control"
-            placeholder="Leave a reply.."
-            id="text"
-          ></textarea>
-          <button
-            type="submit"
-            class="btn btn-primary"
-            [disabled]="!isLoggedIn()"
-          >
-            comment
-          </button>
-        </form>
-      </div>
-    </div>
+
+  <div *ngIf="comment.replies?.length">
+    <app-comment *ngFor="let reply of comment.replies" [comment]="reply">
+    </app-comment>
   </div>
 </div>
