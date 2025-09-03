@@ -11,6 +11,14 @@ export class BackendService {
     return this.http.get('http://localhost:3000/community/');
   }
 
+  deleteCommunity(id: string) {
+    return this.http.delete('http://localhost:3000/community/' + id);
+  }
+
+  canDelete(id: string) {
+    return this.http.get('http://localhost:3000/community/canDelete/' + id);
+  }
+
   getArticlesFromCommunity(id: string) {
     return this.http.get('http://localhost:3000/community/' + id + '/articles');
   }

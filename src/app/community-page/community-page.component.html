@@ -1,6 +1,13 @@
 <div class="container">
   <div class="container d-flex justify-content-between">
     <h1 class="text-center">{{ communityName }}</h1>
+    <h2
+      *ngIf="hasPermissionToDelete"
+      style="cursor: pointer"
+      (click)="goToDeleteCommunity(communityId)"
+    >
+      > Delete community
+    </h2>
     <h2 style="cursor: pointer" (click)="goToCreateArticle(communityId)">
       > Post article
     </h2>

@@ -18,6 +18,7 @@ export class CommunityPageComponent {
   data: any = {};
   communityData: any = {};
   communityName: string = '';
+  hasPermissionToDelete: Boolean = false;
 
   ngOnInit() {
     this.communityId = this.route.snapshot.paramMap.get('id')!;
@@ -33,6 +34,8 @@ export class CommunityPageComponent {
       );
       this.communityName = community ? community.name : 'Unknown';
     });
+
+    this.canDelete(this.communityId);
   }
 
   upvoteArticle(id: string) {
@@ -97,5 +100,18 @@ export class CommunityPageComponent {
 
   goToCreateArticle(id: string) {
     this.router.navigate(['community/' + id + '/createArticle']);
+  }
+
+  goToDeleteCommunity(id: string) {
+    this.backend.deleteCommunity(id).subscribe((res: any) => {
+      this.router.navigate(['community/main']);
+      console.log(res);
+    });
+  }
+
+  canDelete(id: string) {
+    this.backend.canDelete(id).subscribe((res: any) => {
+      this.hasPermissionToDelete = res.canDelete;
+    });
   }
 }
