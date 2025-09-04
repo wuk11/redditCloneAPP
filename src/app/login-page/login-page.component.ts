@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { BackendService } from '../backend.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../auth.service';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-page',

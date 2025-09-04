@@ -57,4 +57,11 @@ export const routes: Routes = [
       return m.CreateArticlePageComponent;
     },
   },
+  {
+    path: 'profile',
+    loadComponent: async () => {
+      const m = await import('./profile-page/profile-page.component');
+      return m.ProfilePageComponent;
+    },
+  },
 ];

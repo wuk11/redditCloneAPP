@@ -1,0 +1,21 @@
+<div class="container">
+  <div *ngIf="userData" class="card">
+    <h5 class="card-header">{{ userData?.username }}</h5>
+    <h5 class="card-header">{{ userData?.email }}</h5>
+    <div class="card-body text-center">
+      <img
+        *ngIf="userData?.image"
+        src="{{ userData?.image }}"
+        class="img-fluid"
+        alt="..."
+        style="max-height: 100px"
+      />
+      <p class="card-text">{{ userData?.description }}</p>
+    </div>
+    <div class="card-footer text-body-secondary">
+      <!-- <span class="card-text px-2">
+        {{ userData?.karma }}
+      </span> -->
+    </div>
+  </div>
+</div>

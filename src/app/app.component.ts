@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { AuthService } from './auth.service';
 import { CommonModule } from '@angular/common';
+import { BackendService } from './backend.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,9 @@ import { CommonModule } from '@angular/common';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService, private backend: BackendService) {}
+
+  ngOnInit() {}
 
   logout() {
     this.auth.logout();

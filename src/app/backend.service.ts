@@ -110,4 +110,19 @@ export class BackendService {
       description,
     });
   }
+
+  postChangePassword(oldPass: string, newPass: string) {
+    return this.http.post('http://localhost:3000/user/changePassword', {
+      oldPass,
+      newPass,
+    });
+  }
+
+  getUser(id: string) {
+    return this.http.get('http://localhost:3000/user/' + id);
+  }
+
+  getMe() {
+    return this.http.get('http://localhost:3000/user/me');
+  }
 }
