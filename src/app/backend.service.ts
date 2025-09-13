@@ -118,11 +118,33 @@ export class BackendService {
     });
   }
 
+  postChangeDescription(description: string) {
+    return this.http.post('http://localhost:3000/user/changeDescription', {
+      description,
+    });
+  }
+
+  postChangeDisplayName(displayName: string) {
+    return this.http.post('http://localhost:3000/user/changeDisplayName', {
+      displayName: displayName,
+    });
+  }
+
+  postChangeImage(image: string) {
+    return this.http.post('http://localhost:3000/user/changeImage', {
+      image: image,
+    });
+  }
+
   getUser(id: string) {
     return this.http.get('http://localhost:3000/user/' + id);
   }
 
   getMe() {
     return this.http.get('http://localhost:3000/user/me');
+  }
+
+  getUserKarma(id: string) {
+    return this.http.get('http://localhost:3000/user/' + id + '/karma');
   }
 }
