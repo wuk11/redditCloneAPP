@@ -3,22 +3,35 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { BackendService } from '../backend.service';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-community-page',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, ReactiveFormsModule],
   templateUrl: './community-page.component.html',
   styleUrl: './community-page.component.css',
 })
 export class CommunityPageComponent {
-  constructor(private backend: BackendService, private router: Router) {}
+  constructor(
+    private backend: BackendService,
+    private router: Router,
+    private fb: FormBuilder
+  ) {
+    this.editRulesForm = this.fb.group({
+      rules: [''],
+    });
+  }
 
   private route = inject(ActivatedRoute);
   communityId!: string;
   data: any = {};
+  community: any = {};
   communityData: any = {};
   communityName: string = '';
   hasPermissionToDelete: Boolean = false;
+  hasPermissionToEdit: Boolean = false;
+  isRulesFormHidden: Boolean = true;
+  editRulesForm: FormGroup;
 
   ngOnInit() {
     this.communityId = this.route.snapshot.paramMap.get('id')!;
@@ -29,13 +42,14 @@ export class CommunityPageComponent {
 
     this.backend.getCommunities().subscribe((res) => {
       this.communityData = res;
-      const community = this.communityData.communities.find(
+      this.community = this.communityData.communities.find(
         (c: any) => c.id == this.communityId
       );
-      this.communityName = community ? community.name : 'Unknown';
+      this.communityName = this.community ? this.community.name : 'Unknown';
     });
 
     this.canDelete(this.communityId);
+    this.canEdit(this.communityId);
   }
 
   upvoteArticle(id: string) {
@@ -105,7 +119,6 @@ export class CommunityPageComponent {
   goToDeleteCommunity(id: string) {
     this.backend.deleteCommunity(id).subscribe((res: any) => {
       this.router.navigate(['community/main']);
-      console.log(res);
     });
   }
 
@@ -113,5 +126,24 @@ export class CommunityPageComponent {
     this.backend.canDelete(id).subscribe((res: any) => {
       this.hasPermissionToDelete = res.canDelete;
     });
+  }
+
+  canEdit(id: string) {
+    this.backend.canEdit(id).subscribe((res: any) => {
+      this.hasPermissionToEdit = res.canEdit;
+    });
+  }
+
+  showRulesEditForm() {
+    this.isRulesFormHidden = !this.isRulesFormHidden;
+  }
+
+  postEditRules() {
+    const { rules } = this.editRulesForm.value;
+    this.backend
+      .postChangeRules(rules, this.communityId)
+      .subscribe((res: any) => {
+        this.community.rules = rules;
+      });
   }
 }

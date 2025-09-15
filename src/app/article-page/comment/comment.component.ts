@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 export class CommentComponent {
   commentForm: FormGroup;
   replyForm: FormGroup;
+  reportForm: FormGroup;
 
   constructor(
     private backend: BackendService,
@@ -24,6 +25,9 @@ export class CommentComponent {
     });
     this.replyForm = this.fb.group({
       text: [''],
+    });
+    this.reportForm = this.fb.group({
+      reportText: [''],
     });
   }
 
@@ -76,5 +80,9 @@ export class CommentComponent {
         alert(err.error.message);
       },
     });
+  }
+
+  report(reason: string, id: string) {
+    this.backend.postCommentReport(reason, id).subscribe((res: any) => {});
   }
 }

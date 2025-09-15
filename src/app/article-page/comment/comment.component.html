@@ -1,57 +1,103 @@
 <div class="container">
-  <!-- comment -->
   <div class="card mt-2">
     <h5 class="card-header">
       {{ comment.isDeleted ? "Deleted" : comment.text }}
     </h5>
     <div class="card-footer text-body-secondary d-flex align-items-center">
-      <i
-        class="bi bi-caret-up-square"
-        style="cursor: pointer"
-        (click)="upvoteComment(comment.id)"
-      ></i>
-      <span class="card-text px-2">
-        {{ comment.karma }}
-      </span>
-      <i
-        class="bi bi-caret-down-square pe-auto"
-        style="cursor: pointer"
-        (click)="downvoteComment(comment.id)"
-      ></i>
-      <button
-        class="btn mx-4"
-        (click)="delete(comment.id)"
-        [disabled]="!isLoggedIn()"
-      >
-        Delete
-      </button>
-      <button
-        (click)="toggleReply(comment.id)"
-        class="btn mx-4"
-        [disabled]="!isLoggedIn()"
-      >
-        Reply
-      </button>
-      <form
-        [hidden]="activeReplyId == comment.id ? false : true"
-        [formGroup]="replyForm"
-        (submit)="postReply(comment.id)"
-        class="my-4"
-      >
-        <textarea
-          formControlName="text"
-          class="form-control"
-          placeholder="Leave a reply.."
-          id="text"
-        ></textarea>
+      <div class="w-100">
+        <i
+          class="bi bi-caret-up-square"
+          style="cursor: pointer"
+          (click)="upvoteComment(comment.id)"
+        ></i>
+        <span class="card-text px-2">
+          {{ comment.karma }}
+        </span>
+        <i
+          class="bi bi-caret-down-square pe-auto"
+          style="cursor: pointer"
+          (click)="downvoteComment(comment.id)"
+        ></i>
         <button
-          type="submit"
-          class="btn btn-primary"
+          class="btn mx-4"
+          (click)="delete(comment.id)"
           [disabled]="!isLoggedIn()"
         >
-          comment
+          Delete
         </button>
-      </form>
+
+        <button
+          (click)="toggleReply(comment.id)"
+          class="btn mx-4"
+          [disabled]="!isLoggedIn()"
+        >
+          Reply
+        </button>
+        <form
+          [hidden]="activeReplyId == comment.id ? false : true"
+          [formGroup]="replyForm"
+          (submit)="postReply(comment.id)"
+          class="my-4"
+        >
+          <textarea
+            formControlName="text"
+            class="form-control"
+            placeholder="Leave a reply.."
+            id="text"
+          ></textarea>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="!isLoggedIn()"
+          >
+            comment
+          </button>
+        </form>
+      </div>
+
+      <div class="dropdown flex-shrink-1">
+        <button
+          class="btn btn-danger dropdown-toggle"
+          type="button"
+          data-bs-toggle="dropdown"
+        >
+          Report
+        </button>
+        <ul class="dropdown-menu">
+          <li>
+            <a
+              style="cursor: pointer"
+              class="dropdown-item"
+              (click)="report('Spam', comment.id)"
+              >Spam</a
+            >
+          </li>
+          <li>
+            <a
+              style="cursor: pointer"
+              class="dropdown-item"
+              (click)="report('Offensive', comment.id)"
+              >Offensive</a
+            >
+          </li>
+          <li>
+            <a
+              style="cursor: pointer"
+              class="dropdown-item"
+              (click)="report('Hate', comment.id)"
+              >Hate</a
+            >
+          </li>
+          <li>
+            <a
+              style="cursor: pointer"
+              class="dropdown-item"
+              (click)="report('Harassment', comment.id)"
+              >Harassment</a
+            >
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 

@@ -19,6 +19,10 @@ export class BackendService {
     return this.http.get('http://localhost:3000/community/canDelete/' + id);
   }
 
+  canEdit(id: string) {
+    return this.http.get('http://localhost:3000/community/canEdit/' + id);
+  }
+
   getArticlesFromCommunity(id: string) {
     return this.http.get('http://localhost:3000/community/' + id + '/articles');
   }
@@ -146,5 +150,23 @@ export class BackendService {
 
   getUserKarma(id: string) {
     return this.http.get('http://localhost:3000/user/' + id + '/karma');
+  }
+
+  postCommentReport(reportReason: string, id: string) {
+    return this.http.post('http://localhost:3000/reports/comment/' + id, {
+      reportReason: reportReason,
+    });
+  }
+
+  postArticleReport(reportReason: string, id: string) {
+    return this.http.post('http://localhost:3000/reports/article/' + id, {
+      reportReason: reportReason,
+    });
+  }
+
+  postChangeRules(rules: string, id: string) {
+    return this.http.post('http://localhost:3000/community/changeRules/' + id, {
+      rules: rules,
+    });
   }
 }

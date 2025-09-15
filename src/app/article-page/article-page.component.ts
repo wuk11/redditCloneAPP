@@ -125,4 +125,8 @@ export class ArticlePageComponent {
 
     return roots;
   }
+
+  report(reason: string, id: string) {
+    this.backend.postArticleReport(reason, id).subscribe((res: any) => {});
+  }
 }
