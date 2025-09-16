@@ -37,6 +37,5 @@ export class LoginPageComponent {
       this.auth.setSession(this.tokenData);
       this.router.navigate(['']);
     });
-    console.log('loging in!!', this.username, this.password);
   }
 }
