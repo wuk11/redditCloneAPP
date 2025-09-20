@@ -3,7 +3,7 @@
 This is the frontend application for the RedditClone project. It provides a Reddit-like user interface built with Angular and styled using Bootstrap.
 It consumes the backend API (Node.js + Express + Sequelize + JWT) to handle authentication, posts, comments, voting, and community features.
 
-Features
+# Features
 
 User authentication (login & registration),
 
@@ -20,7 +20,7 @@ Community creation and browsing,
 Responsive UI with Bootstrap
 
 
-Tech Stack
+# Tech Stack
 
 Angular
 
