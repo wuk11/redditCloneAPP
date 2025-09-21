@@ -40,7 +40,7 @@ export class BackendService {
     title: string,
     text: string,
     image?: string,
-    tag?: string
+    tags?: JSON
   ) {
     return this.http.post(
       'http://localhost:3000/community/' + id + '/article',
@@ -48,7 +48,7 @@ export class BackendService {
         title,
         text,
         ...(image ? { image } : {}),
-        ...(tag ? { tag } : {}),
+        ...(tags ? { tags } : {}),
       }
     );
   }
