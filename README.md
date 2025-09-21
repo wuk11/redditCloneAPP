@@ -1,6 +1,37 @@
-# Redditclone
+# Redditclone / Klonnit
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.13.
+This is the frontend application for the RedditClone project. It provides a Reddit-like user interface built with Angular and styled using Bootstrap.
+It consumes the backend API (Node.js + Express + Sequelize + JWT) to handle authentication, posts, comments, voting, and community features.
+
+# Features
+
+User authentication (login & registration),
+
+Browse posts from different communities,
+
+Create, edit, and delete posts,
+
+Comment on posts,
+
+Voting system (upvote/downvote posts & comments),
+
+Community creation and browsing,
+
+Responsive UI with Bootstrap
+
+
+# Tech Stack
+
+Angular
+
+Bootstrap
+
+TypeScript
+
+RxJS & Angular Services
+
+JWT
+
 
 ## Development server
 
