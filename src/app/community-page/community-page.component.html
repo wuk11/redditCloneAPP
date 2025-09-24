@@ -65,7 +65,11 @@
         <h5 class="card-header">{{ article.title }}</h5>
       </a>
       <h6 class="card-header" *ngIf="article.tags">
-        >Tags: {{ article.tags }}
+        <span
+          *ngFor="let tag of article.tags"
+          class="badge text-bg-secondary mx-1"
+          >{{ tag }}</span
+        >
       </h6>
       <div class="card-body">
         <img

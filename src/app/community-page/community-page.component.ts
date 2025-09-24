@@ -140,10 +140,13 @@ export class CommunityPageComponent {
 
   postEditRules() {
     const { rules } = this.editRulesForm.value;
-    this.backend
-      .postChangeRules(rules, this.communityId)
-      .subscribe((res: any) => {
+    this.backend.postChangeRules(rules, this.communityId).subscribe({
+      next: (res: any) => {
         this.community.rules = rules;
-      });
+      },
+      error: (err: any) => {
+        alert(err.error.message);
+      },
+    });
   }
 }

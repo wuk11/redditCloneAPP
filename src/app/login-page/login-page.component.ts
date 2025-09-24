@@ -32,10 +32,15 @@ export class LoginPageComponent {
   onFormSubmit(event: any) {
     event.preventDefault();
     const { username, password } = this.loginForm.value;
-    this.backend.postLogin(username, password).subscribe((res) => {
-      this.tokenData = res;
-      this.auth.setSession(this.tokenData);
-      this.router.navigate(['']);
+    this.backend.postLogin(username, password).subscribe({
+      next: (res) => {
+        this.tokenData = res;
+        this.auth.setSession(this.tokenData);
+        this.router.navigate(['']);
+      },
+      error: (err: any) => {
+        alert(err.error.message);
+      },
     });
   }
 }

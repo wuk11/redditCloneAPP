@@ -21,7 +21,6 @@ export class FrontPageRandomComponent {
       this.shuffle(this.data);
       if (this.data.length > 10) {
         this.articles = this.data.slice(0, 10);
-        console.log(this.articles);
       }
     });
   }

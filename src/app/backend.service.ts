@@ -116,26 +116,26 @@ export class BackendService {
   }
 
   postChangePassword(oldPass: string, newPass: string) {
-    return this.http.post('http://localhost:3000/user/changePassword', {
+    return this.http.patch('http://localhost:3000/user/changePassword', {
       oldPass,
       newPass,
     });
   }
 
   postChangeDescription(description: string) {
-    return this.http.post('http://localhost:3000/user/changeDescription', {
+    return this.http.patch('http://localhost:3000/user/changeDescription', {
       description,
     });
   }
 
   postChangeDisplayName(displayName: string) {
-    return this.http.post('http://localhost:3000/user/changeDisplayName', {
+    return this.http.patch('http://localhost:3000/user/changeDisplayName', {
       displayName: displayName,
     });
   }
 
   postChangeImage(image: string) {
-    return this.http.post('http://localhost:3000/user/changeImage', {
+    return this.http.patch('http://localhost:3000/user/changeImage', {
       image: image,
     });
   }
@@ -165,8 +165,11 @@ export class BackendService {
   }
 
   postChangeRules(rules: string, id: string) {
-    return this.http.post('http://localhost:3000/community/changeRules/' + id, {
-      rules: rules,
-    });
+    return this.http.patch(
+      'http://localhost:3000/community/changeRules/' + id,
+      {
+        rules: rules,
+      }
+    );
   }
 }

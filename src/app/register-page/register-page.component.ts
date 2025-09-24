@@ -26,8 +26,14 @@ export class RegisterPageComponent {
 
   onFormSubmit() {
     const { username, password, email } = this.registerForm.value;
-    this.backend.postRegister(username, password, email).subscribe();
-    console.log('Registered a new account!');
-    this.router.navigate(['']);
+    console.log(password);
+    this.backend.postRegister(username, password, email).subscribe({
+      next: (res: any) => {
+        this.router.navigate(['']);
+      },
+      error: (err: any) => {
+        alert(err.error.message);
+      },
+    });
   }
 }

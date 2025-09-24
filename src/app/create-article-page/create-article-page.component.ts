@@ -21,7 +21,7 @@ export class CreateArticlePageComponent {
       title: [''],
       text: [''],
       image: [''],
-      tag: [''],
+      tags: [[]],
     });
   }
 
@@ -33,10 +33,11 @@ export class CreateArticlePageComponent {
   }
 
   onFormSubmit() {
-    const { title, text, image, tag } = this.articleForm.value;
+    let { title, text, image, tags } = this.articleForm.value;
+    tags = tags.trim().split(/\s+/);
 
     this.backend
-      .postArticle(this.communityId, title, text, image, tag)
+      .postArticle(this.communityId, title, text, image, tags)
       .subscribe((res) => {
         this.router.navigate(['community/' + this.communityId]);
       });

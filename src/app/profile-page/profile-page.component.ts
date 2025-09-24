@@ -51,40 +51,56 @@ export class ProfilePageComponent {
   onPassFormSubmit(event: any) {
     event.preventDefault();
     const { password, newPassword } = this.changePassForm.value;
-    this.backend
-      .postChangePassword(password, newPassword)
-      .subscribe((res: any) => {
-        console.log(res);
-      });
+    this.backend.postChangePassword(password, newPassword).subscribe({
+      next: (res: any) => {},
+      error: (err: any) => {
+        alert(err.error.message);
+      },
+    });
   }
 
   onDescFormSubmit(event: any) {
     event.preventDefault();
     const { description } = this.changeDescForm.value;
-    this.backend.postChangeDescription(description).subscribe((res: any) => {
-      this.backend.getMe().subscribe((res: any) => {
-        this.userData = res.user;
-      });
+    this.backend.postChangeDescription(description).subscribe({
+      next: (res: any) => {
+        this.backend.getMe().subscribe((res: any) => {
+          this.userData = res.user;
+        });
+      },
+      error: (err: any) => {
+        alert(err.error.message);
+      },
     });
   }
 
   onDisplayNameFormSubmit(event: any) {
     event.preventDefault();
     const { displayName } = this.changeDisplayNameForm.value;
-    this.backend.postChangeDisplayName(displayName).subscribe((res: any) => {
-      this.backend.getMe().subscribe((res: any) => {
-        this.userData = res.user;
-      });
+    this.backend.postChangeDisplayName(displayName).subscribe({
+      next: (res: any) => {
+        this.backend.getMe().subscribe((res: any) => {
+          this.userData = res.user;
+        });
+      },
+      error: (err: any) => {
+        alert(err.error.message);
+      },
     });
   }
 
   onImageFormSubmit(event: any) {
     event.preventDefault();
     const { image } = this.changeImageForm.value;
-    this.backend.postChangeImage(image).subscribe((res: any) => {
-      this.backend.getMe().subscribe((res: any) => {
-        this.userData = res.user;
-      });
+    this.backend.postChangeImage(image).subscribe({
+      next: (res: any) => {
+        this.backend.getMe().subscribe((res: any) => {
+          this.userData = res.user;
+        });
+      },
+      error: (err: any) => {
+        alert(err.error.message);
+      },
     });
   }
 

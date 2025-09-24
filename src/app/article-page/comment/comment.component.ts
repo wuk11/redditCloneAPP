@@ -83,6 +83,10 @@ export class CommentComponent {
   }
 
   report(reason: string, id: string) {
-    this.backend.postCommentReport(reason, id).subscribe((res: any) => {});
+    this.backend.postCommentReport(reason, id).subscribe({
+      error: (err: any) => {
+        alert(err.error.message);
+      },
+    });
   }
 }

@@ -26,8 +26,14 @@ export class CreateCommunityPageComponent {
   onFormSubmit(event: any) {
     event.preventDefault();
     const { name, description } = this.createCommunityForm.value;
-    this.backend.postCommunity(name, description).subscribe((res) => {
-      this.router.navigate(['']);
+    this.backend.postCommunity(name, description).subscribe({
+      next: (res) => {
+        this.router.navigate(['']);
+      },
+      error: (err: any) => {
+        console.log(err);
+        alert(err.error.message);
+      },
     });
   }
 }
