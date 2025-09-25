@@ -172,4 +172,17 @@ export class BackendService {
       }
     );
   }
+
+  deleteArticle(id: string) {
+    return this.http.delete('http://localhost:3000/community/article/' + id);
+  }
+
+  editTags(id: string, tags: []) {
+    return this.http.patch(
+      'http://localhost:3000/community/articles/editTags/' + id,
+      {
+        tags: tags,
+      }
+    );
+  }
 }

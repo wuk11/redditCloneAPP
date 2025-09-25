@@ -38,8 +38,13 @@ export class CreateArticlePageComponent {
 
     this.backend
       .postArticle(this.communityId, title, text, image, tags)
-      .subscribe((res) => {
-        this.router.navigate(['community/' + this.communityId]);
+      .subscribe({
+        next: (res) => {
+          this.router.navigate(['community/' + this.communityId]);
+        },
+        error: (err) => {
+          alert(err.error.message);
+        },
       });
   }
 }
