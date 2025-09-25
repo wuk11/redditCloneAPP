@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { BackendService } from '../backend.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -15,7 +16,11 @@ export class ProfilePageComponent {
   changeDisplayNameForm: FormGroup;
   changeImageForm: FormGroup;
 
-  constructor(private backend: BackendService, private fb: FormBuilder) {
+  constructor(
+    private backend: BackendService,
+    private fb: FormBuilder,
+    private auth: AuthService
+  ) {
     this.changePassForm = this.fb.group({
       password: [''],
       newPassword: [''],
@@ -50,13 +55,21 @@ export class ProfilePageComponent {
 
   onPassFormSubmit(event: any) {
     event.preventDefault();
-    const { password, newPassword } = this.changePassForm.value;
-    this.backend.postChangePassword(password, newPassword).subscribe({
-      next: (res: any) => {},
-      error: (err: any) => {
-        alert(err.error.message);
-      },
-    });
+    const { password, newPassword, confirmPassword } =
+      this.changePassForm.value;
+    if (newPassword === confirmPassword) {
+      this.backend.postChangePassword(password, newPassword).subscribe({
+        next: (res: any) => {
+          this.auth.logout();
+          alert('Password changed successfully, please log back in.');
+        },
+        error: (err: any) => {
+          alert(err.error.message);
+        },
+      });
+    } else {
+      alert('Passwords do not match.');
+    }
   }
 
   onDescFormSubmit(event: any) {
